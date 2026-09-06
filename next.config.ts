@@ -1,7 +1,9 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next'
+
+import './src/env'
 
 const nextConfig: NextConfig = {
-  /* config options here */
-};
+  serverExternalPackages: ['@resvg/resvg-js', 'satori'],
+}
 
-export default nextConfig;
+export default nextConfig
