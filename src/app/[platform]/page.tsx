@@ -5,7 +5,7 @@ import { FaqList } from '@/components/faq-list'
 import { PlatformGrid } from '@/components/platform-grid'
 import { Section } from '@/components/section'
 import { ShotForm } from '@/components/shot-form'
-import { Badge } from '@/components/ui/badge'
+import { ShowroomHero } from '@/components/showroom-hero'
 import { PLATFORMS, findPlatform } from '@/constants/platforms'
 import {
   FAQ_HEADING,
@@ -51,29 +51,21 @@ export default async function PlatformPage({
   const isLive = platform.status === 'live'
 
   return (
-    <main className="mx-auto flex w-full max-w-5xl flex-col gap-24 px-5 pb-14">
-      <div className="relative flex flex-col items-center gap-9 pt-16 sm:pt-24">
-        <div className="hero-veil -z-10" aria-hidden />
-        <header className="flex max-w-3xl flex-col items-center gap-5 text-center">
-          <Badge variant={isLive ? 'default' : 'secondary'}>
-            {isLive ? STATUS_LIVE_LABEL : STATUS_PLANNED_LABEL}
-          </Badge>
-          <h1 className="text-[clamp(2.25rem,6vw,3.75rem)] leading-[1] text-balance">
-            {platform.headline}
-          </h1>
-          <p className="text-muted-foreground max-w-xl text-lg leading-relaxed text-pretty">
-            {platform.intro}
-          </p>
-        </header>
-
+    <main className="flex w-full flex-col">
+      <ShowroomHero
+        eyebrow={isLive ? STATUS_LIVE_LABEL : STATUS_PLANNED_LABEL}
+        headline={platform.headline}
+        intro={platform.intro}
+      >
         <ShotForm
           placeholder={platform.urlExample}
           hint={platform.urlHint}
           disabled={!isLive}
           showExample={isLive}
         />
-      </div>
+      </ShowroomHero>
 
+      <div className="mx-auto flex w-full max-w-5xl flex-col gap-24 px-5 py-24">
       <Section id="faq" title={FAQ_HEADING}>
         <script
           type="application/ld+json"
@@ -83,8 +75,9 @@ export default async function PlatformPage({
       </Section>
 
       <Section id="platforms" title={PLATFORMS_HEADING}>
-        <PlatformGrid currentSlug={platform.slug} />
-      </Section>
+          <PlatformGrid currentSlug={platform.slug} />
+        </Section>
+      </div>
     </main>
   )
 }

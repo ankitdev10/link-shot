@@ -4,7 +4,6 @@ import Link from 'next/link'
 import { Section } from '@/components/section'
 import { Button } from '@/components/ui/button'
 import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Separator } from '@/components/ui/separator'
 import { PLATFORMS } from '@/constants/platforms'
 import {
   ABOUT_PRINCIPLES,
@@ -24,23 +23,28 @@ export const metadata: Metadata = {
 
 export default function AboutPage(): React.ReactElement {
   return (
-    <main className="mx-auto flex w-full max-w-3xl flex-col gap-16 px-5 py-14 sm:py-20">
-      <header className="flex flex-col gap-4">
-        <h1 className="text-[2.2rem] leading-[1.08] text-balance sm:text-[2.75rem]">
-          About {BRAND_NAME}
-        </h1>
-        {AUTHOR_BIO.map((paragraph) => (
-          <p
-            key={paragraph}
-            className="text-muted-foreground max-w-2xl text-lg leading-relaxed text-pretty"
-          >
-            {paragraph}
-          </p>
-        ))}
-      </header>
+    <main className="flex w-full flex-col">
+      <section className="showroom dark text-foreground -mt-14 pt-14">
+        <div className="aurora" aria-hidden />
+        <div className="grid-lines" aria-hidden />
+        <div className="grain" aria-hidden />
+        <div className="beam" aria-hidden />
+        <div className="mx-auto flex w-full max-w-3xl flex-col items-center gap-6 px-5 pt-24 pb-20 text-center">
+          <h1 className="sheen text-[clamp(2.5rem,7vw,4rem)] leading-[0.96] font-semibold tracking-[-0.035em] text-balance">
+            About {BRAND_NAME}
+          </h1>
+          {AUTHOR_BIO.map((paragraph) => (
+            <p
+              key={paragraph}
+              className="max-w-2xl text-lg leading-relaxed text-white/55 text-pretty"
+            >
+              {paragraph}
+            </p>
+          ))}
+        </div>
+      </section>
 
-      <Separator />
-
+      <div className="mx-auto flex w-full max-w-3xl flex-col gap-16 px-5 py-24">
       <Section id="who" title={`Made by ${AUTHOR_NAME}`}>
         <div className="flex flex-col gap-5">
           <p className="text-muted-foreground max-w-2xl leading-relaxed">
@@ -93,7 +97,8 @@ export default function AboutPage(): React.ReactElement {
             </li>
           ))}
         </ul>
-      </Section>
+        </Section>
+      </div>
     </main>
   )
 }

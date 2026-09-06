@@ -134,4 +134,9 @@ export default defineConfig([
       'jsx-a11y/alt-text': 'off',
     },
   },
+
+  {
+    files: ['src/components/shot-form.tsx'],
+    rules: { '@next/next/no-img-element': 'off' },
+  },
 ])

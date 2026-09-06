@@ -149,6 +149,127 @@
   }
 }
 
+
+@layer components {
+  .showroom {
+    --sr-ink: #05070c;
+    --sr-deep: #0a0f1a;
+    --sr-glow-a: #3d5bff;
+    --sr-glow-b: #7b3dff;
+    --sr-glow-c: #00c2d1;
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background:
+      radial-gradient(120% 80% at 50% 0%, var(--sr-deep) 0%, var(--sr-ink) 62%);
+  }
+
+  .aurora {
+    position: absolute;
+    inset: -30% -10% auto -10%;
+    height: 70%;
+    z-index: -2;
+    filter: blur(90px);
+    opacity: 0.75;
+    background:
+      radial-gradient(32rem 20rem at 22% 40%, var(--sr-glow-a), transparent 65%),
+      radial-gradient(28rem 18rem at 72% 26%, var(--sr-glow-b), transparent 62%),
+      radial-gradient(24rem 16rem at 50% 68%, var(--sr-glow-c), transparent 60%);
+    animation: aurora-drift 22s ease-in-out infinite alternate;
+  }
+
+  .grain {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.32;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  }
+
+  .grid-lines {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.35;
+    background-image:
+      linear-gradient(to right, color-mix(in oklab, white 6%, transparent) 1px, transparent 1px),
+      linear-gradient(to bottom, color-mix(in oklab, white 6%, transparent) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(70% 55% at 50% 30%, black, transparent 78%);
+  }
+
+  .deck {
+    perspective: 1600px;
+    perspective-origin: 50% 0%;
+  }
+
+  .deck-plate {
+    transform: rotateX(11deg) rotateZ(-0.8deg);
+    transform-origin: 50% 0%;
+    transform-style: preserve-3d;
+  }
+
+  .deck-ghost {
+    position: absolute;
+    inset: 0;
+    border-radius: 1rem;
+    border: 1px solid color-mix(in oklab, white 12%, transparent);
+    background: color-mix(in oklab, white 6%, transparent);
+  }
+
+  .sheen {
+    background:
+      linear-gradient(
+        180deg,
+        color-mix(in oklab, white 100%, transparent) 0%,
+        color-mix(in oklab, white 88%, transparent) 58%,
+        color-mix(in oklab, white 70%, transparent) 100%
+      );
+    background-clip: text;
+    color: transparent;
+  }
+
+  .beam {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    height: 1px;
+    width: min(46rem, 82%);
+    translate: -50% 0;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      color-mix(in oklab, var(--sr-glow-a) 85%, white) 50%,
+      transparent
+    );
+    opacity: 0.7;
+  }
+
+  .halo:hover {
+    border-color: color-mix(in oklab, var(--primary) 45%, var(--border));
+    box-shadow: 0 0 0 1px color-mix(in oklab, var(--primary) 18%, transparent),
+      0 22px 50px -30px color-mix(in oklab, var(--primary) 60%, transparent);
+  }
+}
+
+@keyframes aurora-drift {
+  0% {
+    transform: translate3d(-3%, -2%, 0) scale(1);
+  }
+  100% {
+    transform: translate3d(4%, 3%, 0) scale(1.12);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aurora {
+    animation: none;
+  }
+}
+
 @utility hero-veil {
   position: absolute;
   inset: 0;

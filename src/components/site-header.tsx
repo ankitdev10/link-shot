@@ -1,9 +1,10 @@
 'use client'
 
+import { cn } from 'cn'
 import { Menu } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { LogoMark } from '@/components/logo-mark'
 import { ThemeToggle } from '@/components/theme-toggle'
@@ -36,12 +37,39 @@ function Wordmark(): React.ReactElement {
   )
 }
 
+const SCROLL_THRESHOLD = 24
+
+function useScrolled(threshold: number): boolean {
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const onScroll = (): void => {
+      setScrolled(window.scrollY > threshold)
+    }
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+    }
+  }, [threshold])
+
+  return scrolled
+}
+
 export function SiteHeader(): React.ReactElement {
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
+  const scrolled = useScrolled(SCROLL_THRESHOLD)
 
   return (
-    <header className="bg-background/80 sticky top-0 z-50 border-b backdrop-blur-md">
+    <header
+      className={cn(
+        'sticky top-0 z-50 border-b transition-colors duration-300',
+        scrolled
+          ? 'bg-background/80 border-border backdrop-blur-md'
+          : 'dark text-foreground border-transparent',
+      )}
+    >
       <div className="mx-auto flex h-14 w-full max-w-5xl items-center gap-6 px-5">
         <Wordmark />
 

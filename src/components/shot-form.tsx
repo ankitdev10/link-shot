@@ -19,7 +19,6 @@ import {
   EMPTY_STATE_HINT,
   ERROR_HINT,
   EXAMPLE_CAPTION,
-  EXAMPLE_IMAGE_DARK,
   EXAMPLE_IMAGE_LIGHT,
   PADDING_OPTIONS,
   RENDER_LABEL,
@@ -159,77 +158,70 @@ export function ShotForm({
         </div>
       </form>
 
-      <figure className="stage flex w-full flex-col items-center gap-4 rounded-3xl p-5 sm:p-10">
-        {shotUrl === null ? (
-          <>
-            {showExample ? (
-              <>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={EXAMPLE_IMAGE_LIGHT}
-                  alt="Example of a rendered post screenshot"
-                  width={1200}
-                  height={454}
-                  className="w-full max-w-xl rounded-2xl shadow-lg dark:hidden"
-                />
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={EXAMPLE_IMAGE_DARK}
-                  alt="Example of a rendered post screenshot"
-                  width={1200}
-                  height={454}
-                  className="hidden w-full max-w-xl rounded-2xl shadow-lg dark:block"
-                />
-                <figcaption className="text-muted-foreground text-xs">
-                  {EXAMPLE_CAPTION}
-                </figcaption>
-              </>
-            ) : (
-              <p className="text-muted-foreground max-w-xs py-14 text-center text-sm">
+      <figure className="deck w-full">
+        <div className="deck-plate relative mx-auto w-full max-w-2xl">
+          <div className="deck-ghost -top-5 scale-[0.93] opacity-30" />
+          <div className="deck-ghost -top-2.5 scale-[0.965] opacity-50" />
+          <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] p-3 shadow-[0_50px_120px_-40px_rgba(0,0,0,0.9)] backdrop-blur-sm sm:p-4">
+            {shotUrl === null && showExample ? (
+              <img
+                src={EXAMPLE_IMAGE_LIGHT}
+                alt="Example of a rendered post screenshot"
+                width={1200}
+                height={454}
+                className="w-full rounded-xl"
+              />
+            ) : null}
+            {shotUrl === null && !showExample ? (
+              <p className="text-muted-foreground px-6 py-20 text-center text-sm">
                 {EMPTY_STATE_HINT}
               </p>
-            )}
-          </>
-        ) : (
-          <>
-            {status === 'loading' ? (
-              <Skeleton className="h-64 w-full max-w-xl rounded-2xl" />
             ) : null}
-            {status === 'error' ? (
-              <p className="text-muted-foreground max-w-sm py-14 text-center text-sm">
-                {ERROR_HINT}
-              </p>
-            ) : null}
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={shotUrl}
-              alt="Screenshot rendered from the submitted post link"
-              data-hidden={status !== 'ready'}
-              className="w-full max-w-xl rounded-2xl shadow-lg data-[hidden=true]:hidden"
-              onLoad={() => {
-                setStatus('ready')
-              }}
-              onError={() => {
-                setStatus('error')
-              }}
-            />
-            {status === 'ready' ? (
-              <figcaption>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  render={
-                    <a href={shotUrl} download>
-                      <Download className="size-4" />
-                      Download PNG
-                    </a>
-                  }
+            {shotUrl === null ? null : (
+              <>
+                {status === 'loading' ? (
+                  <Skeleton className="h-64 w-full rounded-xl bg-white/10" />
+                ) : null}
+                {status === 'error' ? (
+                  <p className="text-muted-foreground px-6 py-20 text-center text-sm">
+                    {ERROR_HINT}
+                  </p>
+                ) : null}
+                <img
+                  src={shotUrl}
+                  alt="Screenshot rendered from the submitted post link"
+                  data-hidden={status !== 'ready'}
+                  className="w-full rounded-xl data-[hidden=true]:hidden"
+                  onLoad={() => {
+                    setStatus('ready')
+                  }}
+                  onError={() => {
+                    setStatus('error')
+                  }}
                 />
-              </figcaption>
-            ) : null}
-          </>
-        )}
+              </>
+            )}
+          </div>
+        </div>
       </figure>
+
+      <figcaption className="text-muted-foreground -mt-2 text-xs">
+        {status === 'ready' && shotUrl !== null ? (
+          <Button
+            variant="outline"
+            size="sm"
+            render={
+              <a href={shotUrl} download>
+                <Download className="size-4" />
+                Download PNG
+              </a>
+            }
+          />
+        ) : (
+          EXAMPLE_CAPTION
+        )}
+      </figcaption>
+
     </div>
   )
 }

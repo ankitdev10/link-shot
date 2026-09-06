@@ -29,6 +29,37 @@ export const PADDING_OPTIONS = [
   { value: '96', label: 'Large' },
 ] as const
 
+export const HERO_EYEBROW = 'Renders X posts today'
+
+export const BENTO_HEADING = 'Built for images you actually ship'
+export const BENTO_INTRO =
+  'The card is drawn from the post data, not photographed from a page, and everything follows from that.'
+
+export const BENTO = [
+  {
+    title: 'Twice the resolution',
+    detail:
+      'Every render is supersampled, so text stays crisp on retina screens and in printed decks instead of turning to mush.',
+    span: 'sm:col-span-2',
+  },
+  {
+    title: 'Three card themes',
+    detail: 'Light, dim and dark, matched to how the post looks in the app.',
+    span: '',
+  },
+  {
+    title: 'No browser in the loop',
+    detail: 'No headless Chrome, no cookie banners, no login walls in your image.',
+    span: '',
+  },
+  {
+    title: 'Media and quotes included',
+    detail:
+      'Photos, quoted posts, verified badges, timestamps and counts all land in the card exactly where they belong.',
+    span: 'sm:col-span-2',
+  },
+] as const
+
 export const PLATFORMS_HEADING = 'Pick a platform'
 export const PLATFORMS_INTRO =
   'Every network gets its own page, because a LinkedIn post and a tweet do not carry the same information.'
