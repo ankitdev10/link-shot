@@ -64,10 +64,10 @@ export function SiteHeader(): React.ReactElement {
   return (
     <header
       className={cn(
-        'sticky top-0 z-50 border-b transition-colors duration-300',
+        'dark text-foreground sticky top-0 z-50 border-b transition-colors duration-300',
         scrolled
-          ? 'bg-background/80 border-border backdrop-blur-md'
-          : 'dark text-foreground border-transparent',
+          ? 'bg-background/88 border-border/60 backdrop-blur-xl'
+          : 'border-transparent',
       )}
     >
       <div className="mx-auto flex h-14 w-full max-w-5xl items-center gap-6 px-5">

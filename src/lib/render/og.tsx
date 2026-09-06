@@ -4,6 +4,7 @@ import satori from 'satori'
 import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from '@/constants/seo'
 import { CARD_THEMES } from '@/constants/tokens'
 import { loadFonts } from '@/lib/render/fonts'
+import { loadAdditionalAsset } from '@/lib/render/glyphs'
 
 const theme = CARD_THEMES.dim
 
@@ -85,6 +86,7 @@ export async function renderOgPng(
         weight: font.weight,
         style: font.style,
       })),
+      loadAdditionalAsset,
     },
   )
 

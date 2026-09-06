@@ -16,11 +16,13 @@ import {
 import { Skeleton } from '@/components/ui/skeleton'
 import { DEFAULT_PADDING } from '@/constants/render'
 import {
+  DOWNLOAD_LABEL,
   EMPTY_STATE_HINT,
   ERROR_HINT,
   EXAMPLE_CAPTION,
   EXAMPLE_IMAGE_LIGHT,
   PADDING_OPTIONS,
+  RENDERING_LABEL,
   RENDER_LABEL,
   SHOT_ENDPOINT,
   THEME_OPTIONS,
@@ -158,11 +160,9 @@ export function ShotForm({
         </div>
       </form>
 
-      <figure className="deck w-full">
-        <div className="deck-plate relative mx-auto w-full max-w-2xl">
-          <div className="deck-ghost -top-5 scale-[0.93] opacity-30" />
-          <div className="deck-ghost -top-2.5 scale-[0.965] opacity-50" />
-          <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] p-3 shadow-[0_50px_120px_-40px_rgba(0,0,0,0.9)] backdrop-blur-sm sm:p-4">
+      <figure className="w-full">
+        <div className="relative mx-auto w-full max-w-2xl">
+          <div className="relative overflow-hidden rounded-2xl shadow-[0_40px_90px_-35px_rgba(0,0,0,0.75)]">
             {shotUrl === null && showExample ? (
               <img
                 src={EXAMPLE_IMAGE_LIGHT}
@@ -180,7 +180,7 @@ export function ShotForm({
             {shotUrl === null ? null : (
               <>
                 {status === 'loading' ? (
-                  <Skeleton className="h-64 w-full rounded-xl bg-white/10" />
+                  <Skeleton className="h-64 w-full bg-white/10" />
                 ) : null}
                 {status === 'error' ? (
                   <p className="text-muted-foreground px-6 py-20 text-center text-sm">
@@ -191,7 +191,7 @@ export function ShotForm({
                   src={shotUrl}
                   alt="Screenshot rendered from the submitted post link"
                   data-hidden={status !== 'ready'}
-                  className="w-full rounded-xl data-[hidden=true]:hidden"
+                  className="w-full data-[hidden=true]:hidden"
                   onLoad={() => {
                     setStatus('ready')
                   }}
@@ -201,26 +201,38 @@ export function ShotForm({
                 />
               </>
             )}
+
+            {status === 'loading' ? (
+              <Button
+                size="sm"
+                disabled
+                className="absolute top-3 right-3 z-10 shadow-lg backdrop-blur-md"
+              >
+                <Loader2 className="size-4 animate-spin" />
+                {RENDERING_LABEL}
+              </Button>
+            ) : null}
+            {status === 'ready' && shotUrl !== null ? (
+              <Button
+                size="sm"
+                className="absolute top-3 right-3 z-10 shadow-lg backdrop-blur-md"
+                render={
+                  <a href={shotUrl} download>
+                    <Download className="size-4" />
+                    {DOWNLOAD_LABEL}
+                  </a>
+                }
+              />
+            ) : null}
           </div>
         </div>
       </figure>
 
-      <figcaption className="text-muted-foreground -mt-2 text-xs">
-        {status === 'ready' && shotUrl !== null ? (
-          <Button
-            variant="outline"
-            size="sm"
-            render={
-              <a href={shotUrl} download>
-                <Download className="size-4" />
-                Download PNG
-              </a>
-            }
-          />
-        ) : (
-          EXAMPLE_CAPTION
-        )}
-      </figcaption>
+      {shotUrl === null && showExample ? (
+        <figcaption className="text-muted-foreground -mt-2 text-xs">
+          {EXAMPLE_CAPTION}
+        </figcaption>
+      ) : null}
 
     </div>
   )

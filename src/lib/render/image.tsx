@@ -5,6 +5,7 @@ import { CARD_WIDTH } from '@/constants/render'
 import type { CardTheme } from '@/constants/tokens'
 import { Card } from '@/lib/render/card'
 import { loadFonts } from '@/lib/render/fonts'
+import { loadAdditionalAsset } from '@/lib/render/glyphs'
 import type { Post } from '@/lib/types'
 
 export type RenderOptions = {
@@ -31,6 +32,7 @@ export async function renderPostPng({
       weight: font.weight,
       style: font.style,
     })),
+    loadAdditionalAsset,
   })
 
   const resvg = new Resvg(svg, {

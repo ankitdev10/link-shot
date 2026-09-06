@@ -2,6 +2,8 @@ import { BRAND_NAME } from '@/constants/site'
 
 export const SHOT_ENDPOINT = '/api/shot'
 export const RENDER_LABEL = 'Render screenshot'
+export const DOWNLOAD_LABEL = 'Download'
+export const RENDERING_LABEL = 'Rendering'
 export const EXAMPLE_IMAGE_LIGHT = '/example-light.png'
 export const EXAMPLE_IMAGE_DARK = '/example-dark.png'
 export const EXAMPLE_CAPTION = 'An example render. Paste a link to make your own.'

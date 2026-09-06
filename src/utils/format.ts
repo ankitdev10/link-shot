@@ -15,9 +15,7 @@ export function formatTimestamp(iso: string | null): string | null {
   if (iso === null) return null
   const date = new Date(iso)
   if (Number.isNaN(date.getTime())) return null
-  return date.toLocaleString('en-US', {
-    hour: 'numeric',
-    minute: '2-digit',
+  return date.toLocaleDateString('en-US', {
     month: 'short',
     day: 'numeric',
     year: 'numeric',

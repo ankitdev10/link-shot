@@ -201,25 +201,6 @@
     mask-image: radial-gradient(70% 55% at 50% 30%, black, transparent 78%);
   }
 
-  .deck {
-    perspective: 1600px;
-    perspective-origin: 50% 0%;
-  }
-
-  .deck-plate {
-    transform: rotateX(11deg) rotateZ(-0.8deg);
-    transform-origin: 50% 0%;
-    transform-style: preserve-3d;
-  }
-
-  .deck-ghost {
-    position: absolute;
-    inset: 0;
-    border-radius: 1rem;
-    border: 1px solid color-mix(in oklab, white 12%, transparent);
-    background: color-mix(in oklab, white 6%, transparent);
-  }
-
   .sheen {
     background:
       linear-gradient(
